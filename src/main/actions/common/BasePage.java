@@ -241,7 +241,8 @@ public class BasePage {
 
     protected void pressKeyToElement(WebDriver driver, String locator, Keys key) {
         action = new Actions(driver);
-        action.sendKeys(getElement(driver, locator), key).perform();
+//        action.sendKeys(getElement(driver, locator), key).perform();
+        action.moveToElement(getElement(driver, locator)).sendKeys(key).build().perform();
     }
 
     protected Object executeForBrowser(WebDriver driver, String javaScript) {

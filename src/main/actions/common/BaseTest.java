@@ -17,7 +17,7 @@ public class BaseTest {
         BROWSER browser = BROWSER.valueOf(browserName.toUpperCase());
         if(browser == BROWSER.CHROME)
         {
-            System.setProperty("webdriver.chrome.driver", "resources/driver/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", projectLocation +"\\resources\\driver\\chromedriver.exe");
             driver = new ChromeDriver();
         }
         else if(browser == BROWSER.FIREFOX)

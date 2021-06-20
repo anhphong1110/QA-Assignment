@@ -7,23 +7,22 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import common.BaseTest;
 import pageObjects.HomePageObject;
+import pageObjects.SearchPageObject;
 import pageObjects.PageGeneratorManager;
+import testData.testData;
 
 public class homePageStep extends BaseTest{
     private WebDriver driver;
-    private String homePageTile;
+
     private HomePageObject homePage;
+    private SearchPageObject searchPage;
 
     @Before
     public void beforeClass(){
         driver = getBrowserDrive("chrome");
-        homePageTile = "Сurrent weather and forecast - OpenWeatherMap";
         homePage = PageGeneratorManager.getHomePage(driver);
     }
 
@@ -32,26 +31,27 @@ public class homePageStep extends BaseTest{
         driver.quit();
     }
 
-    @Given("^user is on homepage$")
+    @Given("^User is on homepage$")
     public void user_is_on_homepage(){
-        Assert.assertEquals("Page Title is matching",homePageTile,homePage.getHomePageTitle());
+        Assert.assertEquals("Page Title is matching",testData.HOME_PAGE_TITLE,homePage.getHomePageTitle());
     }
 
-    @When("^user enters '(.*)' into search box")
-    public void user_enters_valid_city_in_the_navigation_search_box(String city){
+    @When("^User input '(.*)' into search box")
+    public void user_input_into_city_search_box(String city){
         homePage.inputTextIntoSearchbox(city);
     }
 
-//    @And("^user selects enter on keyboard to search$")
-//    public void user_selects_enter_on_keyboard_to_search(){
-//        homePage.pressEnterIntoSearchbox();
-//    }
-//
-//    @Then("^find page is displayed with correct page title$")
-//    public void find_page_is_displayed_with_correct_page_title(){
-//        Assert.assertEquals("Page Title is matching", OpenWeatherMapData.FIND_PAGE_TITLE, driver.getTitle());
-//    }
-//
+    @And("^User press enter to search$")
+    public void user_press_enter_to_search(){
+        homePage.pressEnterIntoSearchbox();
+    }
+
+    @Then("^Search page is displayed$")
+    public void search_page_is_displayed(){
+        searchPage = PageGeneratorManager.getSearchPage(driver);
+        Assert.assertEquals("Page Title is matching", testData.SEARCH_PAGE_TITLE, searchPage.getSearchPageTitle());
+    }
+
 //    @And("^find page header as Weather in your city is displayed$")
 //    public void find_page_header_is_displayed() {
 //        Assert.assertEquals("Headline is matching", OpenWeatherMapData.HEADLINE_WEATHER_IN_YOUR_CITY, findPage.headlineInFindPage.getText());

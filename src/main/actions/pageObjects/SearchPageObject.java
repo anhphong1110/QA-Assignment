@@ -35,5 +35,8 @@ public class SearchPageObject extends BasePage {
         return getElementAttribute(driver,SearchPageLocator.SEARCHPAGE_INPUT_SEARCH,"value");
     }
 
+    public boolean isSearchResultNotFoundDisplayed() {
+        return isElementDisplayed(driver,SearchPageLocator.SEARCHPAGE_LABEL_NOTFOUND);
+    }
 }
 

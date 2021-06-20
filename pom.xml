@@ -57,5 +57,10 @@
             <artifactId>extentreports</artifactId>
             <version>4.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.vimalselvam</groupId>
+            <artifactId>cucumber-extentsreport</artifactId>
+            <version>3.0.2</version>
+        </dependency>
     </dependencies>
 </project>

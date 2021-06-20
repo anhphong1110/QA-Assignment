@@ -39,6 +39,7 @@ public class homePageStep extends BaseTest{
     @Given("^User is on homepage$")
     public void user_is_on_homepage(){
         Assert.assertEquals("Page Title is NOT matching",testData.HOME_PAGE_TITLE,homePage.getHomePageTitle());
+
     }
 
     @When("^User input '(.*)' into search box")
@@ -54,7 +55,7 @@ public class homePageStep extends BaseTest{
     @Then("^Search page is displayed$")
     public void search_page_is_displayed(){
         Assert.assertEquals("Page Title is NOT matching", testData.SEARCH_PAGE_TITLE, searchPage.getSearchPageTitle());
-        searchPage.getWeatherInformation();
+
     }
 
     @And("^Weather information is displayed$")
@@ -71,6 +72,11 @@ public class homePageStep extends BaseTest{
     public void search_form_is_displayed_with_entered_city(DataTable dataTable){
         List<Map<String, String>> expected = dataTable.asMaps(String.class, String.class);
         Assert.assertEquals(expected.get(0).get("CityName"),searchPage.getSearchText());
+    }
+
+    @And("^Search result is not found$")
+    public void search_result_is_not_found(){
+        Assert.assertTrue(searchPage.isSearchResultNotFoundDisplayed());
     }
 
 

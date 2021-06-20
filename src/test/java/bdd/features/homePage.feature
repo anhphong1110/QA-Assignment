@@ -30,4 +30,7 @@ Feature: Search Weather Feature
 
     Examples: Valid City
       | CityName      |
-      | Osaka, JP     |
+      | Vn, Ho chi Minh     |
+      | test     |
+      | ho chi minh, US     |
+      | 321     |

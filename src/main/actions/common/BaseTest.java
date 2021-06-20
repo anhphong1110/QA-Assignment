@@ -2,6 +2,7 @@ package common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Locale;
@@ -18,7 +19,11 @@ public class BaseTest {
         if(browser == BROWSER.CHROME)
         {
             System.setProperty("webdriver.chrome.driver", projectLocation +"\\resources\\driver\\chromedriver.exe");
-            driver = new ChromeDriver();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--start-maximized");
+            chromeOptions.addArguments("--disable-infobars");
+            chromeOptions.addArguments("--disable-notifications");
+            driver = new ChromeDriver(chromeOptions);
         }
         else if(browser == BROWSER.FIREFOX)
         {

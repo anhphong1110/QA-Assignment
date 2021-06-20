@@ -1,5 +1,6 @@
 package bdd.stepDefinitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -14,9 +15,12 @@ import pageObjects.SearchPageObject;
 import pageObjects.PageGeneratorManager;
 import testData.testData;
 
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
 public class homePageStep extends BaseTest{
     private WebDriver driver;
-
     private HomePageObject homePage;
     private SearchPageObject searchPage;
 
@@ -24,6 +28,7 @@ public class homePageStep extends BaseTest{
     public void beforeClass(){
         driver = getBrowserDrive("chrome");
         homePage = PageGeneratorManager.getHomePage(driver);
+        searchPage = PageGeneratorManager.getSearchPage(driver);
     }
 
     @After
@@ -33,7 +38,7 @@ public class homePageStep extends BaseTest{
 
     @Given("^User is on homepage$")
     public void user_is_on_homepage(){
-        Assert.assertEquals("Page Title is matching",testData.HOME_PAGE_TITLE,homePage.getHomePageTitle());
+        Assert.assertEquals("Page Title is NOT matching",testData.HOME_PAGE_TITLE,homePage.getHomePageTitle());
     }
 
     @When("^User input '(.*)' into search box")
@@ -48,32 +53,25 @@ public class homePageStep extends BaseTest{
 
     @Then("^Search page is displayed$")
     public void search_page_is_displayed(){
-        searchPage = PageGeneratorManager.getSearchPage(driver);
-        Assert.assertEquals("Page Title is matching", testData.SEARCH_PAGE_TITLE, searchPage.getSearchPageTitle());
+        Assert.assertEquals("Page Title is NOT matching", testData.SEARCH_PAGE_TITLE, searchPage.getSearchPageTitle());
+        searchPage.getWeatherInformation();
     }
 
-//    @And("^find page header as Weather in your city is displayed$")
-//    public void find_page_header_is_displayed() {
-//        Assert.assertEquals("Headline is matching", OpenWeatherMapData.HEADLINE_WEATHER_IN_YOUR_CITY, findPage.headlineInFindPage.getText());
-//    }
-//
-//    @And("^search form is displayed with the previous city entered$")
-//    public void search_form_is_displayed_with_previous_city_entered(){
-//        Assert.assertEquals("City is matching", getCity(), findPage.searchBoxInForm.getAttribute("value"));
-//        Assert.assertEquals("Search button is matching", OpenWeatherMapData.SEARCH_BUTTON_TEXT, findPage.searchButtonInForm.getText());
-//    }
-//
-//    @And("^forecast list is displayed$")
-//    public void forecast_list_is_displayed(){
-//        Assert.assertNotNull(findPage.forecastList);
-//    }
-//
-//    @And("^forecast list is NOT displayed$")
-//    public void forecast_list_is_not_displayed(){
-//        if(driver.findElements(By.xpath("//*[@id='forecast_list_ul']//a")).isEmpty()){
-//            Assert.assertTrue(true);
-//        }else{
-//            Assert.fail();
-//        }
-//    }
+    @And("^Weather information is displayed$")
+    public void weather_information_is_displayed(DataTable dataTable) {
+        List<Map<String, String>> expected = dataTable.asMaps(String.class, String.class);
+        Hashtable<String, String> actual = searchPage.getWeatherInformation();
+        Assert.assertEquals(expected.get(0).get("CityNameAndCountry"),actual.get("CityName"));
+        Assert.assertEquals(expected.get(0).get("Geo"),actual.get("Geo"));
+        Assert.assertTrue(searchPage.isTemperatureDisplayed());
+
+    }
+
+    @And("^Search form is displayed with entered city$")
+    public void search_form_is_displayed_with_entered_city(DataTable dataTable){
+        List<Map<String, String>> expected = dataTable.asMaps(String.class, String.class);
+        Assert.assertEquals(expected.get(0).get("CityName"),searchPage.getSearchText());
+    }
+
+
 }

@@ -19,10 +19,20 @@ public class SearchPageObject extends BasePage {
 
     public Hashtable getWeatherInformation(){
         Hashtable<String, String> dictWeatherInformation = new Hashtable<String, String>();
+        waitForElementVisible(driver,SearchPageLocator.SEARCHPAGE_LABEL_CITYNAME);
+        waitForElementVisible(driver,SearchPageLocator.SEARCHPAGE_LABEL_GEO);
         dictWeatherInformation.put("CityName", getElementText(driver,SearchPageLocator.SEARCHPAGE_LABEL_CITYNAME));
-        dictWeatherInformation.put("Temperature", getElementText(driver,SearchPageLocator.SEARCHPAGE_LABEL_CITYNAME));
-        System.out.println(getElementText(driver,"//div[@id='forecast_list_ul']//tr[1]//p[2])"));
+        dictWeatherInformation.put("Geo", getElementText(driver,SearchPageLocator.SEARCHPAGE_LABEL_GEO));
         return dictWeatherInformation;
+    }
+
+    public boolean isTemperatureDisplayed(){
+        waitForElementVisible(driver,SearchPageLocator.SEARCHPAGE_LABEL_TEMPERRATURE);
+        return isElementDisplayed(driver,SearchPageLocator.SEARCHPAGE_LABEL_TEMPERRATURE);
+    }
+
+    public String getSearchText(){
+        return getElementAttribute(driver,SearchPageLocator.SEARCHPAGE_INPUT_SEARCH,"value");
     }
 
 }

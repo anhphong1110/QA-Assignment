@@ -136,6 +136,7 @@ public class BasePage {
     }
 
     protected void sendkeyToElement(WebDriver driver, String locator, String value) {
+        waitForElementVisible(driver,locator);
         getElement(driver, locator).clear();
         getElement(driver, locator).sendKeys(value);
     }

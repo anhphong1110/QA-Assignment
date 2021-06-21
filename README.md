@@ -12,6 +12,7 @@ This project using the following languages and frameworks:
 * [Selenium WebDriver](https://www.selenium.dev/) as the web browser automation framework using the Java binding
 * Cucumber
 * Extend Report
+* Design pattern: Page Object model
 
 ## Execution
 #### Maven

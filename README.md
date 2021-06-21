@@ -11,6 +11,7 @@ This project using the following languages and frameworks:
 * [Java 8](https://www.oracle.com/java/technologies/javase-downloads.html) as the programming language
 * [Selenium WebDriver](https://www.selenium.dev/) as the web browser automation framework using the Java binding
 * Cucumber
+* Extend Report
 
 ## Execution
 #### Maven

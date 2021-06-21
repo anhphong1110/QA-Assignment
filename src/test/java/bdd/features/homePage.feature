@@ -28,7 +28,7 @@ Feature: Search Weather Feature
       | <CityName> |
     And Search result is not found
 
-    Examples: Valid City
+    Examples: Invalid City
       | CityName      |
       | Vn, Ho chi Minh     |
       | test     |
